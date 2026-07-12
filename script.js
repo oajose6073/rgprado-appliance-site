@@ -52,3 +52,40 @@ function select(i){
     });
 }
 knob.style.transform = 'rotate(' + SETTINGS[0].angle + 'deg)';
+
+// ------- request form -------
+document.getElementById('reqForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    const fd = new FormData(form);
+    fd.set('_subject', 'Service request: ' + fd.get('appliance') + ' — ' + fd.get('name'));
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: fd,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (!res.ok) throw new Error('send failed');
+    document.getElementById('formFields').style.display = 'none';
+    document.getElementById('formDone').style.display = 'block';
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = 'Send request';
+    alert("Couldn't send right now — please call or text (204) 228-3686 instead.");
+  }
+});
+
+  // ------- scroll reveal -------
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
