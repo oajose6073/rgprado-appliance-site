@@ -278,3 +278,102 @@ section{padding:76px 0}
     margin-top:auto;font-family:'IBM Plex Mono',monospace;
     font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#5A6A6C;
 }
+
+/* area + booking */
+.book{background:var(--enamel-deep);color:var(--porcelain)}
+.book .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.book h2{
+    font-family:'Zilla Slab',serif;font-weight:700;
+    font-size:clamp(28px,3.4vw,38px);line-height:1.12;margin-bottom:14px;color:#fff;
+}
+.book p{color:#C7D6D6;font-size:16.5px;margin-bottom:22px}
+.bigphone{
+    display:inline-block;font-family:'Zilla Slab',serif;font-weight:700;
+    font-size:clamp(26px,3vw,34px);color:#fff;text-decoration:none;
+    border-bottom:3px solid var(--coil);padding-bottom:3px;margin-bottom:24px;
+}
+.area-list{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.area-list li{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;
+    border:1px solid rgba(243,245,244,.3);border-radius:999px;padding:6px 13px;
+    color:#DCE7E7;
+}
+form.request{
+    background:var(--porcelain);color:var(--charcoal);
+    border-radius:var(--radius);padding:30px 28px;
+    box-shadow:0 18px 40px rgba(0,0,0,.28);
+}
+form.request h3{
+    font-family:'Zilla Slab',serif;font-weight:700;font-size:22px;
+    color:var(--enamel-deep);margin-bottom:4px;
+}
+form.request .formsub{font-size:14px;color:#5A6A6C;margin-bottom:20px}
+.field{margin-bottom:15px}
+.field label{
+    display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;
+    letter-spacing:.12em;text-transform:uppercase;color:#43555A;margin-bottom:6px;
+}
+.field input,.field select,.field textarea{
+    width:100%;font-family:'Karla',sans-serif;font-size:15.5px;color:var(--charcoal);
+    background:var(--white);border:1px solid var(--steel);border-radius:9px;
+    padding:11px 13px;
+}
+.field textarea{resize:vertical;min-height:80px}
+.field input:focus,.field select:focus,.field textarea:focus{
+    outline:2px solid var(--enamel);outline-offset:0;border-color:var(--enamel);
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-done{
+    display:none;text-align:center;padding:34px 10px;
+}
+.form-done .check{
+    width:52px;height:52px;border-radius:50%;background:var(--enamel);
+    display:grid;place-items:center;margin:0 auto 14px;
+}
+.form-done .check svg{width:26px;height:26px}
+.form-done h3{font-family:'Zilla Slab',serif;color:var(--enamel-deep);font-size:22px;margin-bottom:6px}
+.form-done p{color:#39464A;font-size:15px;margin:0}
+
+/* footer */
+footer{background:var(--charcoal);color:#AEB9BA;padding:34px 0}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+footer .fmono{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em}
+footer a{color:#DCE7E7;text-decoration:none}
+footer a:hover{text-decoration:underline}
+footer .fb-link{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;
+    color:#DCE7E7;text-decoration:none;
+    border:1px solid rgba(220,231,231,.35);border-radius:999px;
+    padding:8px 16px;
+    transition:border-color .15s ease, color .15s ease;
+}
+footer .fb-link:hover{border-color:var(--coil);color:#fff;text-decoration:none}
+footer .fb-link svg{width:16px;height:16px}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion: reduce){
+*{transition:none !important;animation:none !important}
+html{scroll-behavior:auto}
+.reveal{opacity:1;transform:none}
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 960px){
+.hero .wrap{grid-template-columns:1fr;gap:40px;padding-top:52px;padding-bottom:52px}
+.truststrip .wrap{grid-template-columns:repeat(2,1fr)}
+.steps,.reviews-grid,.svc-grid{grid-template-columns:1fr 1fr}
+.book .wrap{grid-template-columns:1fr;gap:36px}
+nav .navlinks{display:none}
+}
+@media (max-width: 620px){
+.steps,.reviews-grid,.svc-grid{grid-template-columns:1fr}
+.truststrip .wrap{grid-template-columns:1fr 1fr}
+.form-row{grid-template-columns:1fr}
+.knob-wrap{width:250px;height:250px}
+.knob{width:130px;height:130px;margin:-65px 0 0 -65px}
+.topstrip .wrap{flex-direction:column;gap:2px;align-items:flex-start}
+}
