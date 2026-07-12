@@ -80,12 +80,78 @@ document.getElementById('reqForm').addEventListener('submit', async (e) => {
 });
 
   // ------- scroll reveal -------
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!prefersReduced && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  } else {
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!prefersReduced && 'IntersectionObserver' in window) {
+const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+} else {
+document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+};
+
+// ------- opening slideshow -------
+(function(){
+  const show = document.getElementById('slideshow');
+  if (!show) return;
+
+  // --- your photos ---
+  const SLIDE_COUNT = 19;
+  const EXT = 'jpg'; // change to 'png' / 'jpeg' if that's what your files are
+  const src = i => 'images/image_' + i + '.' + EXT;
+
+  const dotsEl = document.getElementById('slideDots');
+  const cap = show.querySelector('.slide-cap');
+  const slides = [];
+
+  for (let i = 1; i <= SLIDE_COUNT; i++) {
+  const s = document.createElement('div');
+  s.className = 'slide' + (i === 1 ? ' is-active' : '');
+
+  const bg = document.createElement('div');
+  bg.className = 'slide-bg';
+  bg.style.backgroundImage = "url('" + src(i) + "')";
+
+  const img = document.createElement('img');
+  img.className = 'slide-img';
+  img.src = src(i);
+  img.alt = '';
+  img.loading = i === 1 ? 'eager' : 'lazy';
+
+  s.appendChild(bg);
+  s.appendChild(img);
+  show.insertBefore(s, cap);
+  slides.push(s);
+}
+
+  let current = 0, timer = null;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.type = 'button';
+    d.setAttribute('role','tab');
+    d.setAttribute('aria-label','Slide ' + (i + 1));
+    d.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    d.addEventListener('click', () => { go(i); restart(); });
+    dotsEl.appendChild(d);
+  });
+  const dots = dotsEl.querySelectorAll('button');
+
+  function go(i){
+    slides[current].classList.remove('is-active');
+    dots[current].setAttribute('aria-selected','false');
+    current = i;
+    slides[current].classList.add('is-active');
+    dots[current].setAttribute('aria-selected','true');
   }
+  function next(){ go((current + 1) % slides.length); }
+  function restart(){
+    if (reduced) return;
+    clearInterval(timer);
+    timer = setInterval(next, 4500);
+  }
+  show.addEventListener('mouseenter', () => clearInterval(timer));
+  show.addEventListener('mouseleave', restart);
+  restart();
+})();
