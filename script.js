@@ -155,3 +155,5 @@ document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
   show.addEventListener('mouseleave', restart);
   restart();
 })();
+
+// [...document.querySelectorAll('*')].filter(el => el.scrollWidth > document.documentElement.clientWidth).forEach(el => console.log(el, el.scrollWidth));

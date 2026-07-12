@@ -8,16 +8,17 @@
     --steel-soft:#E3E8E8;
     --white:#FFFFFF;
     --radius:14px;
-  }
+}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-background:var(--porcelain);
-color:var(--charcoal);
-font-family:'Karla',sans-serif;
-font-size:17px;
-line-height:1.6;
--webkit-font-smoothing:antialiased;
+    background:var(--porcelain);
+    color:var(--charcoal);
+    font-family:'Karla',sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:clip;
 }
 .mono{font-family:'IBM Plex Mono',monospace}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
@@ -39,9 +40,17 @@ a{color:inherit}
 
 /* ---------- header / nameplate ---------- */
 header{background:var(--porcelain); border-bottom:1px solid var(--steel);}
-header .wrap{display:flex;align-items:center;justify-content:space-between;
-    padding-top:18px;padding-bottom:18px;gap:24px}
-.nameplate{display:flex;align-items:center;gap:14px;text-decoration:none}
+header .wrap{
+    display:flex;align-items:center;
+    justify-content:space-between;
+    padding-top:18px;padding-bottom:18px;gap:24px;
+    min-width:0;
+}
+.nameplate{
+    display:flex;align-items:center;
+    gap:14px;text-decoration:none;
+    min-width:0;flex-shrink:1;
+}
 .plate-mark{
     width:46px;height:46px;border-radius:10px;
     background:var(--enamel);
@@ -53,6 +62,7 @@ header .wrap{display:flex;align-items:center;justify-content:space-between;
     font-family:'Zilla Slab',serif;
     font-weight:700;font-size:23px;line-height:1.05;
     letter-spacing:.01em;color:var(--enamel-deep);
+    white-space:nowrap;
 }
 .nameplate .sub{
     font-family:'IBM Plex Mono',monospace;
@@ -61,9 +71,12 @@ header .wrap{display:flex;align-items:center;justify-content:space-between;
 }
 nav{display:flex;gap:26px;align-items:center}
 nav a{
-text-decoration:none;font-weight:700;font-size:15px;color:var(--charcoal);
+    text-decoration:none;font-weight:700;font-size:15px;color:var(--charcoal);
+    white-space:nowrap;
+    /* transition:color .15s ease; */
 }
 nav a:hover{color:var(--enamel)}
+.navlinks{display:flex;gap:26px}
 .btn{
     display:inline-block;
     background:var(--coil);color:#fff;
@@ -368,6 +381,9 @@ html{scroll-behavior:auto}
 .steps,.reviews-grid,.svc-grid{grid-template-columns:1fr 1fr}
 .book .wrap{grid-template-columns:1fr;gap:36px}
 nav .navlinks{display:none}
+header .wrap{gap:14px}
+.nameplate .sub{display:none}
+.btn-long{display:none}
 }
 @media (max-width: 620px){
 .steps,.reviews-grid,.svc-grid{grid-template-columns:1fr}
@@ -376,6 +392,11 @@ nav .navlinks{display:none}
 .knob-wrap{width:250px;height:250px}
 .knob{width:130px;height:130px;margin:-65px 0 0 -65px}
 .topstrip .wrap{flex-direction:column;gap:2px;align-items:flex-start}
+.btn-long{display:none}
+nav .btn{padding:11px 18px;font-size:15px}
+.nameplate{gap:10px}
+.plate-mark{width:38px;height:38px}
+.plate-mark svg{width:22px;height:22px}
 }
 
 /* ---------- opening slideshow ---------- */
