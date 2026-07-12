@@ -1,0 +1,25 @@
+:root{
+    --porcelain:#F3F5F4;
+    --enamel:#12525A;
+    --enamel-deep:#0C3A40;
+    --charcoal:#1B2123;
+    --coil:#E4611B;
+    --steel:#C9D1D2;
+    --steel-soft:#E3E8E8;
+    --white:#FFFFFF;
+    --radius:14px;
+  }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+background:var(--porcelain);
+color:var(--charcoal);
+font-family:'Karla',sans-serif;
+font-size:17px;
+line-height:1.6;
+-webkit-font-smoothing:antialiased;
+}
+.mono{font-family:'IBM Plex Mono',monospace}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--coil);outline-offset:3px;border-radius:4px}
