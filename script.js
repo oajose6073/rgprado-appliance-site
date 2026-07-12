@@ -19,7 +19,7 @@ const SETTINGS = [
     title:"Not cooling, weak airflow, ice on the unit",
     body:"Often a clogged filter, low refrigerant, or a failing capacitor. Call before the next heat wave hits — summer books up fast." }
 ];
-const R = 128; // label radius
+
 const labelsEl = document.getElementById('knobLabels');
 const knob = document.getElementById('knob');
 const dxLabel = document.getElementById('dxLabel');
@@ -27,19 +27,27 @@ const dxTitle = document.getElementById('dxTitle');
 const dxBody  = document.getElementById('dxBody');
 const CALL = ' <a href="tel:+12042283686">Call now</a>';
 
+function placeLabels(){
+  const wrapSize = labelsEl.parentElement.offsetWidth; // actual .knob-wrap size
+  const c = wrapSize / 2;
+  const r = c - 12; // keep labels just inside the wrap edge
+  labelsEl.querySelectorAll('button').forEach((b, i) => {
+    const rad = (SETTINGS[i].angle - 90) * Math.PI / 180;
+    b.style.left = (c + r * Math.cos(rad)) + 'px';
+    b.style.top  = (c + r * Math.sin(rad)) + 'px';
+  });
+}
+
 SETTINGS.forEach((s, i) => {
-    const rad = (s.angle - 90) * Math.PI / 180;
-    const x = 140 + R * Math.cos(rad);
-    const y = 140 + R * Math.sin(rad);
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.textContent = s.key;
-    b.style.left = x + 'px';
-    b.style.top = y + 'px';
-    b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
-    b.addEventListener('click', () => select(i));
-    labelsEl.appendChild(b);
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.textContent = s.key;
+  b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+  b.addEventListener('click', () => select(i));
+  labelsEl.appendChild(b);
 });
+placeLabels();
+window.addEventListener('resize', placeLabels);
 
 function select(i){
     const s = SETTINGS[i];
